@@ -7,6 +7,7 @@ const { logger } = require("./middlewares/middleware");
 
 const bookRoutes = require("./routes/bookRoute");
 const orderRoutes = require("./routes/orderRoute");
+const config = require("./.secrets/config.json");
 
 const app = express();
 
@@ -31,8 +32,6 @@ app.use("/orders", orderRoutes);
 app.listen(PORT, () => console.log(`listening on PORT: ${PORT}`));
 
 mongoose
-  .connect(
-    "mongodb+srv://admin:admin123@cluster0.qqqidi8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(config.db_con_string)
   .then(() => console.log("connectb to DB"))
   .catch((e) => console.log("Error connecting to DB", e));
